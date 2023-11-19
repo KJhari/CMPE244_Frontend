@@ -1,0 +1,53 @@
+<div class="container mt-5">
+  <div class="row justify-content-center">
+    <div class="col-md-6">
+      <h1 class="text-center mb-4">IoT Based Motor Control</h1>
+      <form [formGroup]="myForm" (ngSubmit)="onSubmit()" class="card p-4">
+        <div class="mb-3">
+          <label for="field1" class="form-label">Frequency</label>
+          <input type="text" class="form-control" id="Frequency" formControlName="Frequency" placeholder="200 - 1500">
+        </div>
+        <div class="mb-3">
+          <label for="field2" class="form-label">Duty Cycle</label>
+          <input type="text" class="form-control" id="Duty_Cycle" formControlName="Duty_Cycle" placeholder="0 - 100 %">
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Direction</label>
+          <div class="form-check">
+            <input class="form-check-input" type="radio" name="direction" id="clockwise" formControlName="Direction" value="0">
+            <label class="form-check-label" for="clockwise">
+              Clockwise
+            </label>
+          </div>
+          <div class="form-check">
+            <input class="form-check-input" type="radio" name="direction" id="anticlockwise" formControlName="Direction" value="1">
+            <label class="form-check-label" for="anticlockwise">
+              Anti-clockwise
+            </label>
+          </div>
+        </div>
+        <div class="mb-3">
+          <label for="field4" class="form-label">Time (optional)</label>
+          <input type="text" class="form-control" [class.disabled]="myForm.get('Time')?.disabled" id="Time" formControlName="Time" placeholder="In seconds(0-10)">
+        </div>
+        <div class="mb-3">
+          <label for="field5" class="form-label"> Degrees (optional)</label>
+          <input type="text" class="form-control" [class.disabled]="myForm.get('Degree')?.disabled" id="Degree" formControlName="Degree" placeholder="0 - 360 degrees">
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+      </form>
+    </div>
+  </div>
+</div>
+
+<div *ngIf="responseMessage" class="container mt-3">
+  <div class="alert" [class.alert-success]="isSuccess" [class.alert-danger]="!isSuccess">
+    {{ responseMessage }}
+    <div *ngIf="sensorData && isSuccess">
+      <h4>Accelerometer Data:</h4>
+      <p>X: {{ sensorData.accelerometer.x | number:'1.2-2' }}</p>
+      <p>Y: {{ sensorData.accelerometer.y | number:'1.2-2' }}</p>
+      <p>Z: {{ sensorData.accelerometer.z | number:'1.2-2' }}</p>
+    </div>
+  </div>
+</div>
