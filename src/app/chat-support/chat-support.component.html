@@ -1,0 +1,22 @@
+<div class="container mt-4">
+    <div class="row justify-content-center">
+      <div class="col-md-6">
+        <div class="card">
+          <div class="card-header">Chat Support</div>
+          <div class="card-body chat-messages" style="height: 300px; overflow-y: auto;">
+            <div *ngFor="let message of messages" class="mb-2">
+              <span class="badge rounded-pill" [ngClass]="{'bg-primary': message.sender === 'User', 'bg-success': message.sender === 'ChatGPT'}">{{ message.sender }}</span>
+              <span class="ms-2">{{ message.text }}</span>
+            </div>
+          </div>
+          <div class="card-footer">
+            <form [formGroup]="chatForm" (ngSubmit)="sendMessage()" class="d-flex">
+              <input type="text" class="form-control me-2" formControlName="message" placeholder="Type your message here">
+              <button type="submit" class="btn btn-primary">Send</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  

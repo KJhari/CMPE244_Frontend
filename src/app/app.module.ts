@@ -6,11 +6,13 @@ import { AppComponent } from './app.component';
 import { FormComponent } from './form/form.component';
 import { HttpClientModule } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
+import { ChatSupportComponent } from './chat-support/chat-support.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    FormComponent
+    FormComponent,
+    ChatSupportComponent
   ],
   imports: [
     BrowserModule,

@@ -12,4 +12,11 @@ export class ApiService {
   submitForm(data: any) {
     return this.http.post(this.apiUrl, data);
   }
+
+  getChatGptResponse(message: string) {
+    const chatGptApiUrl = 'your-chatgpt-api-url'; // Replace with your API URL
+    return this.http.post(chatGptApiUrl, { message });
+  }
 }
+
+
