@@ -1,59 +1,88 @@
 <div class="container mt-5">
   <div class="row justify-content-center">
     <div class="col-md-6">
-      <h1 class="text-center mb-4">IoT Based Motor Control</h1>
+      <h6 class="text-center mb-4">IoT Based Motor Control</h6>
       <form [formGroup]="myForm" (ngSubmit)="onSubmit()" class="card p-4">
+        <!-- Frequency -->
         <div class="mb-3">
-          <label for="field1" class="form-label">Frequency</label>
-          <input type="number" class="form-control" id="Frequency" formControlName="Frequency" placeholder="200 - 1500">
+          <label for="Frequency" class="form-label">Frequency <span class="text-danger">*</span></label>
+          <input type="number" class="form-control" id="Frequency" formControlName="Frequency" placeholder="200 - 1000">
           <div *ngIf="myForm.get('Frequency')?.touched">
             <small class="text-danger" *ngIf="myForm.get('Frequency')?.errors?.['required']">Frequency is required.</small>
             <small class="text-danger" *ngIf="myForm.get('Frequency')?.errors?.['min']">Minimum value is 200.</small>
-            <small class="text-danger" *ngIf="myForm.get('Frequency')?.errors?.['max']">Maximum value is 1500.</small>
+            <small class="text-danger" *ngIf="myForm.get('Frequency')?.errors?.['max']">Maximum value is 1000.</small>
           </div>
         </div>
-        
+
+        <!-- Duty Cycle -->
         <div class="mb-3">
-          <label for="field2" class="form-label">Duty Cycle</label>
-          <input type="text" class="form-control" id="Duty_Cycle" formControlName="Duty_Cycle" placeholder="0 - 100 %">
+          <label for="Duty_Cycle" class="form-label">Duty Cycle <span class="text-danger">*</span></label>
+          <input type="number" class="form-control" id="Duty_Cycle" formControlName="Duty_Cycle" placeholder="0 - 100 %">
+          <div *ngIf="myForm.get('Duty_Cycle')?.touched">
+            <small class="text-danger" *ngIf="myForm.get('Duty_Cycle')?.errors?.['required']">Duty Cycle is required.</small>
+            <small class="text-danger" *ngIf="myForm.get('Duty_Cycle')?.errors?.['min']">Minimum value is 0%.</small>
+            <small class="text-danger" *ngIf="myForm.get('Duty_Cycle')?.errors?.['max']">Maximum value is 100%.</small>
+          </div>
         </div>
+
+        <!-- Direction -->
         <div class="mb-3">
-          <label class="form-label">Direction</label>
+          <label class="form-label">Direction <span class="text-danger">*</span></label>
           <div class="form-check">
             <input class="form-check-input" type="radio" name="direction" id="clockwise" formControlName="Direction" value="0">
-            <label class="form-check-label" for="clockwise">
-              Clockwise
-            </label>
+            <label class="form-check-label" for="clockwise">Clockwise</label>
           </div>
           <div class="form-check">
             <input class="form-check-input" type="radio" name="direction" id="anticlockwise" formControlName="Direction" value="1">
-            <label class="form-check-label" for="anticlockwise">
-              Anti-clockwise
-            </label>
+            <label class="form-check-label" for="anticlockwise">Anti-clockwise</label>
+          </div>
+          <div *ngIf="myForm.get('Direction')?.touched && myForm.get('Direction')?.errors">
+            <small class="text-danger" *ngIf="myForm.get('Direction')?.errors?.['required']">Direction is required.</small>
           </div>
         </div>
+
+        <!-- Time -->
         <div class="mb-3">
-          <label for="field4" class="form-label">Time (optional)</label>
-          <input type="text" class="form-control" [class.disabled]="myForm.get('Time')?.disabled" id="Time" formControlName="Time" placeholder="In seconds(0-10)">
+          <label for="Time" class="form-label">Time (optional)</label>
+          <input type="number" class="form-control" [disabled]="myForm.get('Degree')?.value" id="Time" formControlName="Time" placeholder="In seconds (2-10)">
+          <div *ngIf="myForm.get('Time')?.touched">
+            <small class="text-danger" *ngIf="myForm.get('Time')?.errors?.['min']">Minimum value is 2 seconds.</small>
+            <small class="text-danger" *ngIf="myForm.get('Time')?.errors?.['max']">Maximum value is 10 seconds.</small>
+          </div>
         </div>
+
+        <!-- Degrees -->
         <div class="mb-3">
-          <label for="field5" class="form-label"> Degrees (optional)</label>
-          <input type="text" class="form-control" [class.disabled]="myForm.get('Degree')?.disabled" id="Degree" formControlName="Degree" placeholder="0 - 360 degrees">
+          <label for="Degree" class="form-label"> Degrees (optional)</label>
+          <input type="number" class="form-control" [disabled]="myForm.get('Time')?.value" id="Degree" formControlName="Degree" placeholder="0 - 360 degrees">
+          <div *ngIf="myForm.get('Degree')?.touched">
+            <small class="text-danger" *ngIf="myForm.get('Degree')?.errors?.['min']">Minimum value is 0 degrees.</small>
+            <small class="text-danger" *ngIf="myForm.get('Degree')?.errors?.['max']">Maximum value is 360 degrees.</small>
+          </div>
         </div>
-        <button type="submit" class="btn btn-primary">Submit</button>
+
+        <!-- Submit Button -->
+        <button type="submit" class="btn btn-primary" [disabled]="myForm.invalid">Submit</button>
       </form>
     </div>
   </div>
 </div>
 
+<!-- Response Message -->
 <div *ngIf="responseMessage" class="container mt-3">
   <div class="alert" [class.alert-success]="isSuccess" [class.alert-danger]="!isSuccess">
     {{ responseMessage }}
     <div *ngIf="sensorData && isSuccess">
-      <h4>Accelerometer Data:</h4>
+      <h6>Accelerometer Data:</h6>
       <p>X: {{ sensorData.accelerometer.x | number:'1.2-2' }}</p>
       <p>Y: {{ sensorData.accelerometer.y | number:'1.2-2' }}</p>
       <p>Z: {{ sensorData.accelerometer.z | number:'1.2-2' }}</p>
+      <h6>Magnetometer Data:</h6>
+      <p>X: {{ sensorData.magnetometer.x | number:'1.2-2' }}</p>
+      <p>Y: {{ sensorData.magnetometer.y | number:'1.2-2' }}</p>
+      <p>Z: {{ sensorData.magnetometer.z | number:'1.2-2' }}</p>
+      <h6>Magnetometer Heading:</h6>
+      <p>Angle: {{sensorData.heading}} degrees</p>
     </div>
   </div>
 </div>

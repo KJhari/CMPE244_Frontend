@@ -13,12 +13,14 @@ interface SensorData {
     y: number;
     z: number;
   };
-  sucess?: boolean;
+  angle_yz: number;
+  heading: number;
 }
 
 interface ApiResponse {
   message?: string;
-  data?: any; // Define more specifically if you know the structure
+  error?: string;  // Make sure to include this for error handling
+  data?: any;
   sensor_data?: SensorData;
 }
 @Component({
@@ -34,7 +36,7 @@ export class FormComponent {
 
   constructor(private fb: FormBuilder, private apiService: ApiService) {
     this.myForm = this.fb.group({
-      Frequency: ['', [Validators.required, Validators.min(200), Validators.max(1500)]],
+      Frequency: ['', [Validators.required, Validators.min(200), Validators.max(1000)]],
       Duty_Cycle: ['', [Validators.required, Validators.min(0), Validators.max(100)]],
       Direction: ['', Validators.required],
       Time: ['',[Validators.min(2), Validators.max(10)]],
@@ -74,20 +76,25 @@ export class FormComponent {
   onSubmit() {
     this.apiService.submitForm(this.myForm.value).subscribe(
       (response: ApiResponse) => {
-        this.isSuccess = response.sensor_data?.sucess ?? false;
-        if (this.isSuccess && response.sensor_data) {
-          this.sensorData = response.sensor_data;
-          this.responseMessage = 'Success: ' + response.message;
-        } else {
-          this.responseMessage = 'Failure: ' + response.message;
+        if (response.error) {
+          // Error handling
+          this.isSuccess = false;
+          this.responseMessage = 'Error: ' + response.error;
           this.sensorData = null;
+        } else {
+          // Success handling
+          this.isSuccess = true;
+          this.responseMessage = response.message || 'Success';
+          this.sensorData = response.sensor_data || null;
         }
       },
       error => {
+        // Network or other technical error handling
         this.isSuccess = false;
-        this.responseMessage = 'Error: ' + error;
+        this.responseMessage = 'Technical error: ' + error.message;
         this.sensorData = null;
       }
     );
   }
+  
 }
