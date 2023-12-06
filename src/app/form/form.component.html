@@ -72,7 +72,20 @@
 <div *ngIf="responseMessage" class="container mt-3">
   <div class="alert" [class.alert-success]="isSuccess" [class.alert-danger]="!isSuccess">
     {{ responseMessage }}
+    <div *ngIf="sensorData_b && isSuccess">
+      <h6>Sensor Data Before</h6>
+      <h6>Accelerometer Data:</h6>
+      <p>X: {{ sensorData_b.accelerometer.x | number:'1.2-2' }}</p>
+      <p>Y: {{ sensorData_b.accelerometer.y | number:'1.2-2' }}</p>
+      <p>Z: {{ sensorData_b.accelerometer.z | number:'1.2-2' }}</p>
+      <h6>Magnetometer Data:</h6>
+      <p>X: {{ sensorData_b.magnetometer.x | number:'1.2-2' }}</p>
+      <p>Y: {{ sensorData_b.magnetometer.y | number:'1.2-2' }}</p>
+      <p>Z: {{ sensorData_b.magnetometer.z | number:'1.2-2' }}</p>
+      <h6>Magnetometer Heading: {{sensorData_b.heading}}</h6>
+    </div>
     <div *ngIf="sensorData && isSuccess">
+      <h6>Sensor Data After</h6>
       <h6>Accelerometer Data:</h6>
       <p>X: {{ sensorData.accelerometer.x | number:'1.2-2' }}</p>
       <p>Y: {{ sensorData.accelerometer.y | number:'1.2-2' }}</p>
@@ -81,8 +94,7 @@
       <p>X: {{ sensorData.magnetometer.x | number:'1.2-2' }}</p>
       <p>Y: {{ sensorData.magnetometer.y | number:'1.2-2' }}</p>
       <p>Z: {{ sensorData.magnetometer.z | number:'1.2-2' }}</p>
-      <h6>Magnetometer Heading:</h6>
-      <p>Angle: {{sensorData.heading}} degrees</p>
+      <h6>Magnetometer Heading: {{sensorData.heading}}</h6>
     </div>
   </div>
 </div>

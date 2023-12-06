@@ -13,7 +13,6 @@ interface SensorData {
     y: number;
     z: number;
   };
-  angle_yz: number;
   heading: number;
 }
 
@@ -22,6 +21,7 @@ interface ApiResponse {
   error?: string;  // Make sure to include this for error handling
   data?: any;
   sensor_data?: SensorData;
+  sensor_data_b?: SensorData;
 }
 @Component({
   selector: 'app-form',
@@ -32,6 +32,7 @@ export class FormComponent {
   myForm: FormGroup;
   responseMessage: string;
   sensorData: SensorData | null = null;
+  sensorData_b: SensorData | null = null;
   isSuccess: boolean = false; // New property to track success status
 
   constructor(private fb: FormBuilder, private apiService: ApiService) {
@@ -80,11 +81,13 @@ export class FormComponent {
           this.isSuccess = false;
           this.responseMessage = 'Error: ' + response.error;
           this.sensorData = null;
+          this.sensorData_b = null;
         } else {
           // Success handling
           this.isSuccess = true;
           this.responseMessage = response.message || 'Success';
           this.sensorData = response.sensor_data || null;
+          this.sensorData_b = response.sensor_data_b || null;
         }
       },
       error => {
@@ -92,6 +95,7 @@ export class FormComponent {
         this.isSuccess = false;
         this.responseMessage = 'Technical error: ' + error.message;
         this.sensorData = null;
+        this.sensorData_b = null;
       }
     );
   }
