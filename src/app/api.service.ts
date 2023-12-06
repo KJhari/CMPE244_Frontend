@@ -5,17 +5,16 @@ import { HttpClient } from '@angular/common/http';
   providedIn: 'root'
 })
 export class ApiService {
-  private apiUrl = 'http://10.42.0.1:8000/run-motor'; // Replace with your API URL
-
+  private apiUrl = 'http://10.42.0.1:8000/run-motor';
+  private gptapiUrl = 'http://10.42.0.1:8000/gpt-prompt'
   constructor(private http: HttpClient) { }
 
   submitForm(data: any) {
     return this.http.post(this.apiUrl, data);
   }
 
-  getChatGptResponse(message: string) {
-    const chatGptApiUrl = 'your-chatgpt-api-url'; // Replace with your API URL
-    return this.http.post(chatGptApiUrl, { message });
+  getChatGptResponse(prompt: string) {
+    return this.http.post(this.gptapiUrl, { prompt });
   }
 }
 

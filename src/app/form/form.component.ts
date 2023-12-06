@@ -71,7 +71,6 @@ export class FormComponent {
 
   }
 
-  // ... rest of your component
 
   onSubmit() {
     this.apiService.submitForm(this.myForm.value).subscribe(
