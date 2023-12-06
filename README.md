@@ -23,7 +23,7 @@ This is the frontend of an IoT-based motor control system that integrates with a
 1. Clone the repository or download the source code.
 2. Navigate to the frontend directory: `cd path/to/frontend`
 3. Install dependencies: `npm install`
-4. change the 'apiUrl' and 'gptapiUrl' in the api.service.ts according to the backend running device's IP
+4. change the 'apiUrl' and 'gptapiUrl' in the api.service.ts according to the backend running device's IP. Refer to the README_backend for more details
 5. Run the Angular application: `ng serve`
 6. Access the application at `http://localhost:4200`
 
