@@ -5,8 +5,8 @@ import { HttpClient } from '@angular/common/http';
   providedIn: 'root'
 })
 export class ApiService {
-  private apiUrl = 'http://10.42.0.1:8000/run-motor';
-  private gptapiUrl = 'http://10.42.0.1:8000/gpt-prompt'
+  private apiUrl = 'http://192.168.46.23:8000/run-motor';
+  private gptapiUrl = 'http://192.168.46.23:8000/gpt-prompt';
   constructor(private http: HttpClient) { }
 
   submitForm(data: any) {
