@@ -37,7 +37,7 @@ export class FormComponent {
 
   constructor(private fb: FormBuilder, private apiService: ApiService) {
     this.myForm = this.fb.group({
-      Frequency: ['', [Validators.required, Validators.min(200), Validators.max(1000)]],
+      Frequency: ['', [Validators.required, Validators.min(200), Validators.max(1200)]],
       Duty_Cycle: ['', [Validators.required, Validators.min(0), Validators.max(100)]],
       Direction: ['', Validators.required],
       Time: ['',[Validators.min(2), Validators.max(10)]],

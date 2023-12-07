@@ -6,11 +6,11 @@
         <!-- Frequency -->
         <div class="mb-3">
           <label for="Frequency" class="form-label">Frequency <span class="text-danger">*</span></label>
-          <input type="number" class="form-control" id="Frequency" formControlName="Frequency" placeholder="200 - 1000">
+          <input type="number" class="form-control" id="Frequency" formControlName="Frequency" placeholder="200 - 1200">
           <div *ngIf="myForm.get('Frequency')?.touched">
             <small class="text-danger" *ngIf="myForm.get('Frequency')?.errors?.['required']">Frequency is required.</small>
             <small class="text-danger" *ngIf="myForm.get('Frequency')?.errors?.['min']">Minimum value is 200.</small>
-            <small class="text-danger" *ngIf="myForm.get('Frequency')?.errors?.['max']">Maximum value is 1000.</small>
+            <small class="text-danger" *ngIf="myForm.get('Frequency')?.errors?.['max']">Maximum value is 1200.</small>
           </div>
         </div>
 
